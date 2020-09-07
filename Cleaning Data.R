@@ -16,36 +16,36 @@ setwd(dir)
 ##Read in and clean data
 
 #Read in city shapefile
-VicCity <- readOGR(CITY OF VICTORIA SHAPEFILE)
+VanCity <- readOGR(CITY OF VANCOUVER SHAPEFILE)
 
 #Read in CSV
-VicCrime <- read.csv(CRIME DATA)
+VanCrime <- read.csv(CRIME DATA)
 
-VicCrime$Date <- as.POSIXct(as.character(VicCrime$incident_datetime), format = "%m/%d/%Y %H:%M")
-VicCrime$Year <- year(VicCrime$Date)
+VanCrime$Date <- as.POSIXct(as.character(VanCrime$incident_datetime), format = "%m/%d/%Y %H:%M")
+VanCrime$Year <- year(VanCrime$Date)
 
 
 
 #clean up the columns
-VicCrime_Clean <- VicCrime[,c(***SELECT COLUMNS IMPORTANT FOR FURTHER ANALYSIS***)]
+VanCrime_Clean <- VanCrime[,c(***SELECT COLUMNS IMPORTANT FOR FURTHER ANALYSIS***)]
 
-VicCrime_Clean <- VicCrime_Clean[which(***YEAR IS 2018***),]
+VanCrime_Clean <- VanCrime_Clean[which(***YEAR IS 2020***),]
 
-Coords <- VicCrime_Clean[,c(***LONG***, ***LAT***)]
+Coords <- VanCrime_Clean[,c(***LONG***, ***LAT***)]
 crs <- CRS("+init=epsg:4326") 
 
-VicCrimePoints <- SpatialPointsDataFrame(coords = , data = , proj4string = )
+VanCrimePoints <- SpatialPointsDataFrame(coords = , data = , proj4string = )
 
-VicCrimePoints <- spTransform(VicCrimePoints, CRS("+init=epsg:3005"))
-VicCity <- spTransform(VicCity, CRS("+init=epsg:3005"))
+VanCrimePoints <- spTransform(VanCrimePoints, CRS("+init=epsg:3005"))
+VanCity <- spTransform(VanCity, CRS("+init=epsg:3005"))
 
-VicCrimePoints <- raster::intersect(VicCrimePoints, VicCity)
-VicCrimePoints <- VicCrimePoints[,-c(9:14)]
+VanCrimePoints <- raster::intersect(VanCrimePoints, VanCity)
+VanCrimePoints <- VanCrimePoints[,-c(9:14)]
 
-levels(VicCrimePoints$parent_incident_type)
+levels(VanCrimePoints$parent_incident_type)
 
 
-kma <- VicCrimePoints[which(VicCrimePoints$parent_incident_type == ***CHOOSE CRIME***),]
+kma <- VanCrimePoints[which(VanCrimePoints$parent_incident_type == ***CHOOSE CRIME***),]
 
 
 kma$x <- coordinates(kma)[,1]
