@@ -3,7 +3,6 @@
 ##spatstat, rgdal, maptools, raster, sp, plyr, lubridate
 
 #####
-##Cleaning Data
 #load required libraries
 #####
 
@@ -14,48 +13,48 @@ setwd(dir)
 
 #####
 ##Read in and clean data
-
-#Read in city shapefile
 VanCity <- readOGR(CITY OF VANCOUVER SHAPEFILE)
-
-#Read in CSV
 VanCrime <- read.csv(CRIME DATA)
 
-VanCrime$Date <- as.POSIXct(as.character(VanCrime$incident_datetime), format = "%m/%d/%Y %H:%M")
-VanCrime$Year <- year(VanCrime$Date)
-
-
-
 #clean up the columns
-VanCrime_Clean <- VanCrime[,c(***SELECT COLUMNS IMPORTANT FOR FURTHER ANALYSIS***)]
-
 VanCrime_Clean <- VanCrime_Clean[which(***YEAR IS 2020***),]
+range(VanCrime_Clean$X)
+
+#omit values with NA
+VanCrime_Clean <- na.omit(VanCrime_Clean)
+range(VanCrime_Clean$X)
+
+VanCrime_Clean <- VanCrime_Clean[which(***X > ZERO****, ]
+range(VanCrime_Clean$X)
+range(VanCrime_Clean$Y)
 
 Coords <- VanCrime_Clean[,c(***LONG***, ***LAT***)]
-crs <- CRS("+init=epsg:4326") 
+crs <- CRS("+init=epsg:32610") 
 
+#create a file type called a SpatialPointsDataFrame
 VanCrimePoints <- SpatialPointsDataFrame(coords = , data = , proj4string = )
 
+#transform the projection of both datasets to ensure that they are the same
 VanCrimePoints <- spTransform(VanCrimePoints, CRS("+init=epsg:3005"))
 VanCity <- spTransform(VanCity, CRS("+init=epsg:3005"))
 
+#intersect the two datasets
 VanCrimePoints <- raster::intersect(VanCrimePoints, VanCity)
-VanCrimePoints <- VanCrimePoints[,-c(9:14)]
 
-levels(VanCrimePoints$parent_incident_type)
-
+#convert the crimes data type to factor
+VanCrimePoints@data$TYPE <- as.factor(VanCrimePoints@data$TYPE)
+levels(VanCrimePoints$Type)
 
 kma <- VanCrimePoints[which(VanCrimePoints$parent_incident_type == ***CHOOSE CRIME***),]
-
-
 kma$x <- coordinates(kma)[,1]
 kma$y <- coordinates(kma)[,2]
+
 #check for and remove duplicated points
-#check for duplicated points
-#finds zero distance among points
+#first, finds zero distance among points to see if there are any duplicates
 zd <- zerodist(kma)
 zd
-#remove duplicates
+
+#if there are duplicates, remove them
 kma <- remove.duplicates(kma)
 
 #create an "extent" object which can be used to create the observation window for spatstat
