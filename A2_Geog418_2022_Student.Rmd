@@ -1,0 +1,58 @@
+---
+title: "Lab Assignment 2"
+author: "Geog 418/518"
+date: 
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#####
+## For this lab you will need the following libraries: 
+##rgdal, rgeos, raster, spatstat, tmap, knitr
+
+
+
+
+
+dir <- "Your Working Directory"
+setwd(dir)
+```
+
+## Introduction
+
+Here you can start your introduction 
+
+
+
+
+```{r Data Cleaning, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+
+```
+
+
+## Study Area
+
+```{r Study Area Map, echo=FALSE, eval=TRUE, warning=FALSE, fig.cap="FIGURE CAPTION FOR YOUR MAP."}
+
+```
+
+## Data
+
+
+
+## Analysis
+
+
+
+## Results
+
+
+
+## Conclusions
+
+
+## References
+
+

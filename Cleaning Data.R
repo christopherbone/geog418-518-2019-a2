@@ -1,23 +1,10 @@
 #####
-## For this lab you will need the following libraries: 
-##spatstat, rgdal, maptools, raster, sp, plyr, lubridate
-
-#####
-#load required libraries
-#####
-
-
-##Set Working Directory
-dir <- "YOUR WORKING DIR"
-setwd(dir)
-
-#####
 ##Read in and clean data
-VanCity <- readOGR(CITY OF VANCOUVER SHAPEFILE)
+VanCity <- readOGR(".", NAME of SHAPE FILE, verbose = FALSE)
 VanCrime <- read.csv(CRIME DATA)
 
 #clean up the columns
-VanCrime_Clean <- VanCrime_Clean[which(***YEAR IS 2020***),]
+VanCrime_Clean <- VanCrime_Clean[which(***YEAR***),]
 range(VanCrime_Clean$X)
 
 #omit values with NA
