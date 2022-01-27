@@ -11,9 +11,9 @@ kde.SG <- cbind(kde.SG, as(kde.500, "SpatialGridDataFrame"))
 
 ***CHOOSE SOME OTHER SIGMA VALUES FOR SENSITIVITY ANALYSIS***
   
-  names(kde.SG) <- c(***NAME YOUR SENSITIVITY TEST COLUMNS***)
+names(kde.SG) <- c(***NAME YOUR SENSITIVITY TEST COLUMNS***)
+
 #plot
-x11() #opens a new plot window
 spplot(kde.SG)
 
 #can see how the bandwidth selection influences the density estimates

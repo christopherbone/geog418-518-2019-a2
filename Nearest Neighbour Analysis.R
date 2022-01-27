@@ -28,3 +28,11 @@ nnd =
   
   z = 
   
+  
+nndResults <- data.frame(NNDd = , 
+                         NNDr = , 
+                         NND = , 
+                         Zscore = , 
+                         Ratio = )
+
+kable(nndResults, caption = "CAPTION FOR TABLE.")
